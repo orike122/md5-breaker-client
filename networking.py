@@ -2,7 +2,7 @@ import socket,Queue,threading
 class Data(object):
     
     def __init__(self,param):
-        #TODO: implement Data fields and functions according to the protocall
+        #TODO: implement Data fields and functions according to the protocol
         pass
     def __repr__(self):
         pass
@@ -23,6 +23,7 @@ class Networking(object):
         
     def recv(self,size):
         self.data = self.socket.recv(size)
+        #TODO: add logic based on protocol
         
     def listen_loop(self,size):
         while self.listen:

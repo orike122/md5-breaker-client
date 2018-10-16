@@ -1,4 +1,5 @@
 import md5
+import threading
 
 class MD5():
     def __init__(self,start,stop,md):
@@ -7,6 +8,7 @@ class MD5():
         self.mdStr=md
         self.l=len(start)
         self.hlp=self.start
+        self.middle = self.seperate()
 
     def tryy(self,index,hlp):
         hlp = list(hlp)
@@ -17,6 +19,19 @@ class MD5():
         hlp = ''.join(hlp)
         return hlp
 
+    def seperate(self):
+        start2 = list(self.start)
+        stop2 = list(self.stop)
+        s = []
+        z=""
+        for x in range(0,len(start2)):
+            s.append(ord(stop2[x])-ord(start2[x]))
+        for x in range(0,len(s)):
+            z=z+chr(ord(start2[x])+(s[x]/2))
+        return z
+
+    def do():
+        pass #to do, threading
 #####recursive check#####
     def lastCheck(self):
         for x in range(ord("a"),ord("z")+1):
@@ -70,8 +85,15 @@ class MD5():
         return "not found"
 #############################
 
-x = MD5("aa","cc","de4b33a0ca6fcc673c62f3952a7daa21")
-print x.newCheck(x.l-1)
+        
+start = "aaaaa"
+stop = "bbbbb"
+
+x = MD5(start,stop,"de4b33a0ca6fcc673c62f3952a7daa21")
+
+x.do()
+
+
 
             
                             

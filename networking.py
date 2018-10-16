@@ -6,13 +6,14 @@ class Data(object):
         pass
     def __repr__(self):
         pass
+
     
 class Networking(object):
 
     def __init___(self,addr):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.addr = addr
-        self.data_queue = Queue()
+        self.data_queue = Queue.Queue()
         self.listen = False
         self.recv_size = 1024
         self.listen_thread = threading.Thread(target = lambda: self.listen_loop(self.recv_size))
@@ -35,5 +36,16 @@ class Networking(object):
     def stop_listening(self):
         self.listen = False
         
+    def pop_data(self):
+        data = None
+        try:
+            data = self.data_queue.get()
+        except Queue.Empty:
+            print "Queue is empty! canno't pop data!"
+            
+        return data
+
+    def is_queue_empty(self):
+        return self.data_queue.empty()
 
         

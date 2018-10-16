@@ -13,10 +13,27 @@ class Networking(object):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.addr = addr
         self.data_queue = Queue()
-
+        self.listen = False
+        self.recv_size = 1024
+        self.listen_thread = threading.Thread(target = lambda: self.listen_loop(self.recv_size))
+        
     def connect(self):
         self.socket.connect(self.addr)
+        
     def recv(self,size):
         self.data = self.socket.recv(size)
+        
+    def listen_loop(self,size):
+        while self.listen:
+            data = self.socket.recv(size)
+            self.data_queue.put(Data(data))
+            
+    def start_listening(self):
+        self.listen = True
+        self.listen_thread.start()
+        
+    def stop_listening(self):
+        self.listen = False
+        
 
         

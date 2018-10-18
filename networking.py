@@ -1,9 +1,42 @@
 import socket,Queue,threading
 class Data(object):
-    
-    def __init__(self,param):
-        #TODO: implement Data fields and functions according to the protocol
-        pass
+    #TODO fix wrong logics
+    #from client
+    NOT_FOUND = 0
+    FOUND = 1
+    KEEP_ALIVE = 2
+    HANDSHAKE = 4
+    #from server
+    CLOSE = 3
+    PACKAGE = 5
+    def __init__(self, mode, name = None, start = None, stop = None, md5 = None, result = None):
+        self.raw_data = None
+        self.name = name
+        self.start = start
+        self.stop = stop
+        self.md5 = md5
+        self.result = result
+        self.mode = mode
+        if self.mode == FOUND:
+            assert result, "you must supply result in FOUND mode!"
+        elif self.mode == HANDSHAKE:
+            assert name, "you must supply name in HANDSHAKE mode!"
+        elif self.mode == PACKAGE:
+            assert start, "you must supply start in PACKAGE mode!"
+            assert start, "you must supply stop in PACKAGE mode!"
+            assert start, "you must supply md5 in PACKAGE mode!"
+    def handle_mode(self):
+        if self.mode == NOT_FOUND:
+            self.raw_data = "not found"
+        elif self.mode == FOUND:
+            self.raw_data = "found: " + result
+        elif self.mode == KEEP_ALIVE:
+            self.raw_data = "keep-alive"
+        elif self.mode == HANDSHAKE:
+            self.raw_data = "name: " + name
+        elif self.mode == CLOSE:
+            pass
+        
     def __repr__(self):
         pass
 

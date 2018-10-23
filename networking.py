@@ -59,6 +59,8 @@ class Networking(object):
         try:
             self.socket.connect(self.addr)
             self.connected = True
+            self.send_thread.start()
+            self.listen_thread.start()
         except socket.error as err:
             print "canno't connect - socket error: " + str(err)
     
@@ -95,13 +97,6 @@ class Networking(object):
             except socket.error as err:
                 print "socket error: " + str(err)
                 self.close()
-            
-    def start_listening(self):
-        self.listen = True
-        self.listen_thread.start()
-        
-    def stop_listening(self):
-        self.listen = False
         
     def pop_data(self):
         data = None

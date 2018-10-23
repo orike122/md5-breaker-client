@@ -80,8 +80,8 @@ class Networking(object):
         self.data_buffer = data
         
     def recv(self,size):
-        self.data = self.socket.recv(size)
-        #TODO: add logic based on protocol
+        data = self.socket.recv(size)
+        self.data_queue.put(Data(raw_data=data))
         
     def listen_loop(self,size):
         while self.connected:

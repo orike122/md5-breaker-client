@@ -1,4 +1,5 @@
 import socket,Queue,threading
+
 class Data(object):
     NOT_FOUND = 0
     FOUND = 1
@@ -17,6 +18,8 @@ class Data(object):
             assert result, "you must supply result in FOUND mode!"
         elif self.mode == Data.HANDSHAKE:
             assert name, "you must supply name in HANDSHAKE mode!"
+        self.process()
+
     def process(self):
         if self.mode == Data.NOT_FOUND:
             self.raw_data = "not found"
@@ -36,6 +39,7 @@ class Data(object):
         
     def __repr__(self):
         pass
+
 
     
 class Networking(object):

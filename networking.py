@@ -1,5 +1,32 @@
 import socket,Queue,threading
+"""
+Example
 
+net = Networking(("10.43.20.2",4320))
+net.connect()
+
+--------get data--------
+if not net.is_queue_empty:
+    data = net.pop_data()
+
+if data.mode == Data.PACKAGE:
+    start = data.start
+    end = data.end
+    md5 = data.md5
+elif data.mode = Data.CLOSE:
+    net.close()
+
+--------send data--------
+data = Data(mode = Data.NOT_FOUND)
+or
+data = Data(mode = Data.FOUND, result = "4320")
+or
+data = Data(mode = Data.KEEP_ALIVE)
+or
+data = Data(mode = Data.HANDSHAKE,name = "TheJoker")
+finally
+net.send_data(data)
+"""
 class Data(object):
     NOT_FOUND = 0
     FOUND = 1
@@ -37,8 +64,6 @@ class Data(object):
             self.raw_data = self.raw_data.replace("md5:","")
             self.start,self.stop,self.md5 = self.raw_data.split(",")
         
-    def __repr__(self):
-        pass
 
 
     

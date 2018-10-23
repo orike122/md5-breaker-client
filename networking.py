@@ -9,8 +9,9 @@ class Data(object):
     #from server
     CLOSE = 3
     PACKAGE = 5
-    def __init__(self, mode, name = None, start = None, stop = None, md5 = None, result = None):
-        self.raw_data = None
+    def __init__(self,mode = None ,raw_data = None, name = None, start = None, stop = None, md5 = None, result = None):
+        assert (not mode and raw_data) or (mode and not raw_data), "Either raw_data or mode have to be used while the other is not!"
+        self.raw_data = raw_data
         self.name = name
         self.start = start
         self.stop = stop
@@ -34,8 +35,8 @@ class Data(object):
             self.raw_data = "keep-alive"
         elif self.mode == HANDSHAKE:
             self.raw_data = "name: " + name
-        elif self.mode == CLOSE:
-            pass
+        elif self.raw_data == "close":
+            self.mode = CLOSE
         
     def __repr__(self):
         pass

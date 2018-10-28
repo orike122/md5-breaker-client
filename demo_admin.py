@@ -2,7 +2,7 @@ import socket
 
 
 def main():
-    soc = socket.scoket(socket.AF_INET, socket.SOCK_STREAM)
+    soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     soc.bind(("0.0.0.0",4320))
     soc.listen(1)
     client,client_addr = soc.accept()

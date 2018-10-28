@@ -61,7 +61,27 @@ class MD5():
         return Data(mode = Data.NOT_FOUND)
 
 def main():
-    pass
+    ADDR = ("127.0.0.1",4320)
+    NAME = "THEJOKER"
+    net = Networking(ADDR)
+    net.connect()
+    net.send(Data(mode = Data.HANDSHAKE))
+    while net.connected:
+        data = []
+        while not net.is_queue_empty():
+            data.add(net.pop_data())
+        for d in data:
+            if d.mode == Data.CLOSE:
+                net.close()
+                break
+            elif d.mode == Data.PACKAGE:
+                breaker = MD5(d.start,d.stop,d.md5)
+                net.send(breaker.smartCheck())
+                
+        net.send(Data(mode = Data.KEEP_ALIVE))
+        
+
+    
 
 if __name__ == "__main__":
     main()

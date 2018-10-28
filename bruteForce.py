@@ -59,6 +59,12 @@ class MD5():
             self.hlp = ''.join(hlp2)
         return "not found"
 
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
+    
 """                                
 x = MD5("aaaaa","azzzz","9b7996ec2cfb97bd416dbb3a7367ad4e")
 

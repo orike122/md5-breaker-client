@@ -1,4 +1,4 @@
-import md5
+import md5,networking
 
 class MD5():
     def __init__(self,start,stop,md):

@@ -8,7 +8,8 @@ class MD5():
         self.mdStr=md
         self.l=len(start)
         self.hlp=self.start
-"""
+
+
     def tryy(self,index,hlp):
         hlp = list(hlp)
         if hlp[index]!="z":                                  
@@ -43,7 +44,7 @@ class MD5():
         return "nope"
 
 ###########################
-"""
+
     def smartCheck(self):
         while self.hlp!=self.stop:
             ezer = md5.new(self.hlp).hexdigest()

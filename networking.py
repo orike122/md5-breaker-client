@@ -69,7 +69,7 @@ class Data(object):
     
 class Networking(object):
 
-    def __init___(self,addr):
+    def __init__(self,addr):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.addr = addr
         self.data_queue = Queue.Queue()

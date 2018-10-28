@@ -66,7 +66,7 @@ def main():
     NAME = "THEJOKER"
     net = Networking(ADDR)
     net.connect()
-    net.send_data(Data(mode = Data.HANDSHAKE))
+    net.send_data(Data(mode = Data.HANDSHAKE,name = NAME))
     while net.connected:
         data = []
         while not net.is_queue_empty():

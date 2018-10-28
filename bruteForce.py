@@ -47,8 +47,10 @@ class MD5():
 
     def smartCheck(self):
         while self.hlp!=self.stop:
+            return Data(mode = Data.FOUND, result = "abc")
             ezer = md5.new(self.hlp).hexdigest()
             if ezer==self.mdStr:
+                print "ret1"
                 return Data(mode = Data.FOUND, result = self.hlp)
             hlp2 = list(self.hlp)
             hlp2[len(hlp2)-1] = chr(ord(hlp2[len(hlp2)-1])+1)
@@ -57,8 +59,10 @@ class MD5():
                     hlp2[len(hlp2)-1-x]="a"
                     hlp2[len(hlp2)-1-x-1]= chr(ord(hlp2[len(hlp2)-1-x-1])+1)
             if ord(hlp2[0])>ord("z"):
+                print "ret2"
                 return Data(mode = Data.NOT_FOUND)
             self.hlp = ''.join(hlp2)
+        print "ret3"
         return Data(mode = Data.NOT_FOUND)
 
 def main():
@@ -76,6 +80,7 @@ def main():
                 net.close()
                 break
             elif d.mode == Data.PACKAGE:
+                print "package"
                 breaker = MD5(d.start,d.stop,d.md5)
                 net.send_data(breaker.smartCheck())
                 

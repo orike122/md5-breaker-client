@@ -59,13 +59,16 @@ class Data(object):
         elif self.raw_data == "close":
             self.mode = Data.CLOSE
         elif self.raw_data.startswith('start:'):
+            self.mode = Data.PACKAGE
+            print "found"
             self.raw_data = self.raw_data.replace("start:","")
             self.raw_data = self.raw_data.replace("end:","")
             self.raw_data = self.raw_data.replace("md5:","")
             self.start,self.stop,self.md5 = self.raw_data.split(",")
         
 
-
+def nothing():
+    pass
     
 class Networking(object):
 
@@ -93,7 +96,7 @@ class Networking(object):
         while self.connected:
             if self.data_buffer:
                 try:
-                    self.send_data(self.data_buffer)
+                    self.socket.send(self.data_buffer)
                 except socket.error as err:
                     print "socket error: " + err
                     self.close()
@@ -108,10 +111,12 @@ class Networking(object):
         self.socket.close()
         
     def send_data(self,data):
+        nothing()
         self.data_buffer = data.raw_data
         
     def recv(self,size):
         data = self.socket.recv(size)
+        print data
         self.data_queue.put(Data(raw_data=data))
         
     def listen_loop(self,size):

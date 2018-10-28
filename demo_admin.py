@@ -6,9 +6,12 @@ def main():
     soc.bind(("0.0.0.0",4320))
     soc.listen(1)
     client,client_addr = soc.accept()
+    print "connected"
     sendmd5(client)
     while True:
-        print client.recv(1024)
+        d= client.recv(1024)
+        if "found" in d:
+            print d
 
 def sendmd5(soc):
     soc.send("start:aaaaa,stop:aaaaz,md5:e80b5017098950fc58aad83c8c14978e")

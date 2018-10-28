@@ -108,7 +108,7 @@ class Networking(object):
         self.socket.close()
         
     def send_data(self,data):
-        self.data_buffer = data
+        self.data_buffer = data.raw_data
         
     def recv(self,size):
         data = self.socket.recv(size)

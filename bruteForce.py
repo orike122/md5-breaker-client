@@ -48,7 +48,7 @@ class MD5():
         while self.hlp!=self.stop:
             ezer = md5.new(self.hlp).hexdigest()
             if ezer==self.mdStr:
-                return self.hlp
+                return Data(mode = Data.FOUND, result = self.hlp)
             hlp2 = list(self.hlp)
             hlp2[len(hlp2)-1] = chr(ord(hlp2[len(hlp2)-1])+1)
             for x in range(0,len(hlp2)):
@@ -56,9 +56,9 @@ class MD5():
                     hlp2[len(hlp2)-1-x]="a"
                     hlp2[len(hlp2)-1-x-1]= chr(ord(hlp2[len(hlp2)-1-x-1])+1)
             if ord(hlp2[0])>ord("z"):
-                return "not found"
+                return Data(mode = Data.NOT_FOUND)
             self.hlp = ''.join(hlp2)
-        return "not found"
+        return Data(mode = Data.NOT_FOUND)
 
 def main():
     pass

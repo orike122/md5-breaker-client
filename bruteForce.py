@@ -66,20 +66,20 @@ def main():
     NAME = "THEJOKER"
     net = Networking(ADDR)
     net.connect()
-    net.send(Data(mode = Data.HANDSHAKE))
+    net.send_data(Data(mode = Data.HANDSHAKE))
     while net.connected:
         data = []
         while not net.is_queue_empty():
-            data.add(net.pop_data())
+            data.append(net.pop_data())
         for d in data:
             if d.mode == Data.CLOSE:
                 net.close()
                 break
             elif d.mode == Data.PACKAGE:
                 breaker = MD5(d.start,d.stop,d.md5)
-                net.send(breaker.smartCheck())
+                net.send_data(breaker.smartCheck())
                 
-        net.send(Data(mode = Data.KEEP_ALIVE))
+        net.send_data(Data(mode = Data.KEEP_ALIVE))
         
 
     

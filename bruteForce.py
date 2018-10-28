@@ -7,7 +7,7 @@ class MD5():
         self.mdStr=md
         self.l=len(start)
         self.hlp=self.start
-
+"""
     def tryy(self,index,hlp):
         hlp = list(hlp)
         if hlp[index]!="z":                                  
@@ -42,7 +42,7 @@ class MD5():
         return "nope"
 
 ###########################
-
+"""
     def smartCheck(self):
         while self.hlp!=self.stop:
             ezer = md5.new(self.hlp).hexdigest()
@@ -58,8 +58,9 @@ class MD5():
                 return "not found"
             self.hlp = ''.join(hlp2)
         return "not found"
-                    
-                
+
+"""                                
 x = MD5("aaaaa","azzzz","9b7996ec2cfb97bd416dbb3a7367ad4e")
 
 print x.smartCheck()
+"""

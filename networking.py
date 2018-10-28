@@ -117,8 +117,7 @@ class Networking(object):
     def listen_loop(self,size):
         while self.connected:
             try:
-                data = self.recv(size)
-                self.data_queue.put(Data(data))
+                self.recv(size)
             except socket.error as err:
                 print "socket error: " + str(err)
                 self.close()

@@ -47,7 +47,6 @@ class MD5():
 
     def smartCheck(self):
         while self.hlp!=self.stop:
-            return Data(mode = Data.FOUND, result = "abc")
             ezer = md5.new(self.hlp).hexdigest()
             if ezer==self.mdStr:
                 print "ret1"
@@ -66,11 +65,12 @@ class MD5():
         return Data(mode = Data.NOT_FOUND)
 
 def main():
-    ADDR = ("127.0.0.1",4320)
+    ADDR = ("10.30.57.235",2212)
     NAME = "THEJOKER"
     net = Networking(ADDR)
     net.connect()
     net.send_data(Data(mode = Data.HANDSHAKE,name = NAME))
+    count =0
     while net.connected:
         data = []
         while not net.is_queue_empty():
@@ -83,8 +83,11 @@ def main():
                 print "package"
                 breaker = MD5(d.start,d.stop,d.md5)
                 net.send_data(breaker.smartCheck())
-                
-        net.send_data(Data(mode = Data.KEEP_ALIVE))
+        if count>100:
+            count=0
+            net.send_data(Data(mode = Data.KEEP_ALIVE))
+        else:
+            count=0
         
 
     

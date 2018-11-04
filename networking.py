@@ -98,7 +98,7 @@ class Networking(object):
                 try:
                     self.socket.send(self.data_buffer)
                 except socket.error as err:
-                    print "socket error: " + err
+                    print "socket error: " + str(err)
                     self.close()
                 except Exception as err:
                     print "general error in send_loop: " + str(err)

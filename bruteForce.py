@@ -64,13 +64,12 @@ class MD5():
         print "ret3"
         return Data(mode = Data.NOT_FOUND)
 
-def main():
+def main(): 
     ADDR = ("10.30.57.235",2212)
     NAME = "THEJOKER"
     net = Networking(ADDR)
     net.connect()
     net.send_data(Data(mode = Data.HANDSHAKE,name = NAME))
-    count =0
     while net.connected:
         data = []
         while not net.is_queue_empty():
@@ -83,10 +82,8 @@ def main():
                 print "package"
                 breaker = MD5(d.start,d.stop,d.md5)
                 net.send_data(breaker.smartCheck())
-        if count>100:
-            count=0
             net.send_data(Data(mode = Data.KEEP_ALIVE))
-        count = count+1
+        
 
     
 

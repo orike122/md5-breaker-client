@@ -86,9 +86,7 @@ def main():
         if count>100:
             count=0
             net.send_data(Data(mode = Data.KEEP_ALIVE))
-        else:
-            count=0
-        
+        count = count+1
 
     
 

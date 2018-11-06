@@ -3,13 +3,14 @@ import socket
 
 def main():
     soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    soc.bind(("0.0.0.0",4320))
+    soc.bind(("0.0.0.0",4321))
     soc.listen(1)
     client,client_addr = soc.accept()
     print "connected"
     sendmd5(client)
     while True:
         d= client.recv(1024)
+        print d
         if "found" in d:
             print d
 

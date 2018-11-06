@@ -1,21 +1,17 @@
 import socket,Queue,threading
 """
 Example
-
 net = Networking(("10.43.20.2",4320))
 net.connect()
-
 --------get data--------
 if not net.is_queue_empty:
     data = net.pop_data()
-
 if data.mode == Data.PACKAGE:
     start = data.start
     end = data.end
     md5 = data.md5
 elif data.mode = Data.CLOSE:
     net.close()
-
 --------send data--------
 data = Data(mode = Data.NOT_FOUND)
 or
@@ -56,7 +52,7 @@ class Data(object):
             self.raw_data = "keep-alive"
         elif self.mode == Data.HANDSHAKE:
             self.raw_data = "name: " + self.name
-        elif self.raw_data == "close":
+        elif self.raw_data=="bye":
             self.mode = Data.CLOSE
         elif self.raw_data.startswith('start:'):
             self.mode = Data.PACKAGE
@@ -65,11 +61,7 @@ class Data(object):
             self.raw_data = self.raw_data.replace("end:","")
             self.raw_data = self.raw_data.replace("md5:","")
             self.start,self.stop,self.md5 = self.raw_data.split(",")
-        
 
-def nothing():
-    pass
-    
 class Networking(object):
 
     def __init__(self,addr):
@@ -111,12 +103,12 @@ class Networking(object):
         self.socket.close()
         
     def send_data(self,data):
-        nothing()
+        print "check"
         self.data_buffer = data.raw_data
         
     def recv(self,size):
         data = self.socket.recv(size)
-        print data
+        print "the data is "+str(data)
         self.data_queue.put(Data(raw_data=data))
         
     def listen_loop(self,size):
@@ -138,5 +130,3 @@ class Networking(object):
 
     def is_queue_empty(self):
         return self.data_queue.empty()
-
-        

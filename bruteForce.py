@@ -45,7 +45,7 @@ class MD5():
 
 ###########################
 
-    def smartCheck(self):
+    def smartCheck(self,net):
         while self.hlp!=self.stop:
             ezer = md5.new(self.hlp).hexdigest()
             if ezer==self.mdStr:
@@ -60,12 +60,13 @@ class MD5():
             if ord(hlp2[0])>ord("z"):
                 print "ret2"
                 return Data(mode = Data.NOT_FOUND)
+            net.send_data(Data(mode = Data.KEEP_ALIVE))
             self.hlp = ''.join(hlp2)
         print "ret3"
         return Data(mode = Data.NOT_FOUND)
 
-def main(): 
-    ADDR = ("10.30.57.235",2212)
+def main():
+    ADDR = ("10.30.56.167",2212)
     NAME = "THEJOKER"
     net = Networking(ADDR)
     net.connect()
@@ -81,8 +82,8 @@ def main():
             elif d.mode == Data.PACKAGE:
                 print "package"
                 breaker = MD5(d.start,d.stop,d.md5)
-                net.send_data(breaker.smartCheck())
-            net.send_data(Data(mode = Data.KEEP_ALIVE))
+                net.send_data(breaker.smartCheck(net))
+        net.send_data(Data(mode = Data.KEEP_ALIVE))
         
 
     
@@ -92,6 +93,5 @@ if __name__ == "__main__":
     
 """                                
 x = MD5("aaaaa","azzzz","9b7996ec2cfb97bd416dbb3a7367ad4e")
-
 print x.smartCheck()
 """
